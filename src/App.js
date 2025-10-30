@@ -135,23 +135,40 @@ export default function RelatorioParoquial() {
     { desc: 'Cont. Fundo de Manutenção do Clero', valor: finances.fundo_clero || '', repasse: 100 }
   ];
 
+  // Calcula a receita bruta (apenas valores com 10% de repasse)
   const calcReceitaBruta = () => {
-    return financeData.reduce((sum, item) => {
-      const val = parseFloat(item.valor.replace(",", ".")) || 0;
-      return sum + val;
-    }, 0);
+    const valoresComDezPorcento = financeData
+      .filter(item => item.repasse === 10)
+      .reduce((sum, item) => {
+        const val = parseFloat(item.valor.replace(",", ".")) || 0;
+        return sum + val;
+      }, 0);
+    return valoresComDezPorcento;
   };
 
-  const calcTotalRepasse = () => {
-    return financeData.reduce((sum, item) => {
+  // Calcula o repasse de 3% sobre a receita bruta
+  const calcRepasseReceitaBruta = () => {
+    return calcReceitaBruta() * 0.03;
+  };
+
+  // Total Paroquial = soma de todos os repasses
+  const calcTotalParoquial = () => {
+    let total = 0;
+    
+    // Repasses dos itens normais
+    financeData.forEach(item => {
       const val = parseFloat(item.valor.replace(",", ".")) || 0;
-      return sum + (val * item.repasse / 100);
-    }, 0);
+      total += (val * item.repasse / 100);
+    });
+    
+    // Adiciona o 3% da receita bruta
+    total += calcRepasseReceitaBruta();
+    
+    return total;
   };
 
   return (
     <>
-    
       <div className="app-container">
         {step === 'welcome' && (
           <div className="welcome-screen">
@@ -303,19 +320,21 @@ export default function RelatorioParoquial() {
                       </tr>
                     );
                   })}
+                  <tr>
+                    <td>Patrimônio do clero - Receita bruta</td>
+                    <td>{calcReceitaBruta() > 0 ? calcReceitaBruta().toFixed(2).replace(".", ",") : ""}</td>
+                    <td>3%</td>
+                    <td>{calcRepasseReceitaBruta() > 0 ? calcRepasseReceitaBruta().toFixed(2).replace(".", ",") : ""}</td>
+                  </tr>
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td>Receita bruta</td>
-                    <td colSpan="3">{calcReceitaBruta().toFixed(2).replace(".", ",")}</td>
-                  </tr>
-                  <tr>
-                    <td>Total Paroquial</td>
-                    <td colSpan="3">{(calcReceitaBruta() - calcTotalRepasse()).toFixed(2).replace(".", ",")}</td>
+                    <td><strong>Total Paroquial</strong></td>
+                    <td colSpan="3"><strong>{calcTotalParoquial().toFixed(2).replace(".", ",")}</strong></td>
                   </tr>
                   <tr>
                     <td><strong>TOTAL SALDO DAS COMUNIDADES R$ =</strong></td>
-                    <td colSpan="3"><strong>{finances.saldo_comunidades || ''}</strong></td>
+                    <td colSpan="3"><strong>{Number(finances.saldo_comunidades || 0).toLocaleString('pt-BR', {style: 'currency',currency: 'BRL',})}</strong></td>
                   </tr>
                 </tfoot>
               </table>

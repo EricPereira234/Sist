@@ -1,397 +1,604 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  body { 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-  }
-  
-  .app-container { 
-    max-width: 900px; 
-    margin: 0 auto; 
-    padding: 40px 20px;
-  }
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
 
-  /* Modal Styles */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    animation: fadeIn 0.3s ease;
-  }
+body { 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.app-container { 
+  max-width: 900px; 
+  margin: 0 auto; 
+  padding: 20px;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+  padding: 15px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-box {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.4s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes slideUp {
+  from { 
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to { 
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.modal-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.modal-title {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.modal-subtitle {
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.modal-question {
+  font-size: 18px;
+  color: #34495e;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  transition: all 0.3s;
+  margin-bottom: 10px;
+}
+
+.modal-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.modal-hint {
+  font-size: 12px;
+  color: #95a5a6;
+  margin-bottom: 20px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.modal-btn-skip {
+  background: #ecf0f1;
+  color: #7f8c8d;
+}
+
+.modal-btn-skip:hover {
+  background: #d5dbdb;
+}
+
+.modal-btn-next {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.modal-btn-next:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.modal-btn-next:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.modal-progress {
+  margin-bottom: 25px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #ecf0f1;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.4s ease;
+}
+
+.progress-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #7f8c8d;
+}
+
+/* Welcome Screen */
+.welcome-screen {
+  background: white;
+  border-radius: 20px;
+  padding: 60px 40px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease;
+}
+
+.welcome-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.welcome-title {
+  font-size: 32px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.welcome-text {
+  font-size: 18px;
+  color: #7f8c8d;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.welcome-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 18px 50px;
+  border: none;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.welcome-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+}
+
+/* PDF Preview */
+.pdf-preview {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.preview-title {
+  font-size: 24px;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.btn-edit {
+  background: #ecf0f1;
+  color: #34495e;
+}
+
+.btn-edit:hover {
+  background: #d5dbdb;
+}
+
+.btn-download {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+}
+
+/* PDF Content */
+.pdf-content {
+  width: 100%;
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 20mm;
+  background: white;
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.pdf-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.pdf-header h1 {
+  font-size: 16pt;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.pdf-header-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10pt;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pdf-section-title {
+  background: #f0f0f0;
+  padding: 5px 10px;
+  font-weight: bold;
+  margin: 15px 0 10px 0;
+  border: 1px solid #999;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+  font-size: 9pt;
+}
+
+.stats-table td {
+  border: 1px solid #999;
+  padding: 4px 8px;
+}
+
+.stats-table td:nth-child(odd) {
+  font-weight: bold;
+  width: auto;
+  white-space: nowrap;
+}
+
+.finance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+  font-size: 9pt;
+}
+
+.finance-table th {
+  background: #e0e0e0;
+  border: 1px solid #999;
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.finance-table td {
+  border: 1px solid #999;
+  padding: 4px 8px;
+}
+
+.finance-table td:first-child {
+  text-align: left;
+}
+
+.finance-table td:not(:first-child) {
+  text-align: center;
+}
+
+.finance-table tfoot td {
+  font-weight: bold;
+  background: #f5f5f5;
+}
+
+.pdf-footer {
+  margin-top: 30px;
+  font-size: 9pt;
+}
+
+.pdf-footer-date {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.pdf-footer-signature {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.pdf-footer-line {
+  border-top: 1px solid #000;
+  width: 400px;
+  max-width: 100%;
+  margin: 0 auto 5px auto;
+}
+
+.pdf-notes {
+  margin-top: 20px;
+  font-size: 8pt;
+  color: #666;
+}
+
+/* Responsividade para Mobile */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 10px;
   }
 
   .modal-box {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: slideUp 0.4s ease;
-  }
-
-  @keyframes slideUp {
-    from { 
-      transform: translateY(50px);
-      opacity: 0;
-    }
-    to { 
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  .modal-header {
-    text-align: center;
-    margin-bottom: 30px;
+    padding: 25px 20px;
+    border-radius: 15px;
   }
 
   .modal-icon {
-    font-size: 48px;
-    margin-bottom: 15px;
+    font-size: 40px;
   }
 
   .modal-title {
-    font-size: 24px;
-    color: #2c3e50;
-    margin-bottom: 10px;
-    font-weight: 600;
+    font-size: 20px;
   }
 
   .modal-subtitle {
-    color: #7f8c8d;
-    font-size: 14px;
-  }
-
-  .modal-question {
-    font-size: 18px;
-    color: #34495e;
-    margin-bottom: 20px;
-    font-weight: 500;
+    font-size: 13px;
   }
 
   .modal-input {
-    width: 100%;
-    padding: 15px 20px;
-    font-size: 16px;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    transition: all 0.3s;
-    margin-bottom: 10px;
-  }
-
-  .modal-input:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-  }
-
-  .modal-hint {
-    font-size: 12px;
-    color: #95a5a6;
-    margin-bottom: 20px;
-  }
-
-  .modal-buttons {
-    display: flex;
-    gap: 15px;
-    margin-top: 25px;
+    padding: 12px 15px;
+    font-size: 14px;
   }
 
   .modal-btn {
-    flex: 1;
-    padding: 15px;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
+    padding: 12px;
+    font-size: 14px;
   }
 
-  .modal-btn-skip {
-    background: #ecf0f1;
-    color: #7f8c8d;
-  }
-
-  .modal-btn-skip:hover {
-    background: #d5dbdb;
-  }
-
-  .modal-btn-next {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-  }
-
-  .modal-btn-next:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-  }
-
-  .modal-btn-next:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .modal-progress {
-    margin-bottom: 25px;
-  }
-
-  .progress-bar {
-    height: 6px;
-    background: #ecf0f1;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-    transition: width 0.4s ease;
-  }
-
-  .progress-text {
-    text-align: center;
-    margin-top: 10px;
-    font-size: 13px;
-    color: #7f8c8d;
-  }
-
-  /* Welcome Screen */
   .welcome-screen {
-    background: white;
-    border-radius: 20px;
-    padding: 60px 40px;
-    text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-    animation: slideUp 0.4s ease;
+    padding: 40px 20px;
+    border-radius: 15px;
   }
 
   .welcome-icon {
-    font-size: 80px;
-    margin-bottom: 20px;
+    font-size: 60px;
   }
 
   .welcome-title {
-    font-size: 32px;
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-weight: 700;
+    font-size: 24px;
   }
 
   .welcome-text {
-    font-size: 18px;
-    color: #7f8c8d;
-    margin-bottom: 40px;
-    line-height: 1.6;
+    font-size: 16px;
   }
 
   .welcome-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 18px 50px;
-    border: none;
-    border-radius: 50px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    padding: 15px 35px;
+    font-size: 16px;
   }
 
-  .welcome-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
-  }
-
-  /* PDF Preview */
   .pdf-preview {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-    animation: slideUp 0.4s ease;
+    padding: 15px;
+    border-radius: 15px;
   }
 
   .preview-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .preview-title {
-    font-size: 24px;
-    color: #2c3e50;
-    font-weight: 700;
+    font-size: 20px;
   }
 
   .action-buttons {
-    display: flex;
-    gap: 15px;
+    width: 100%;
+    flex-direction: column;
   }
 
   .btn-action {
-    padding: 12px 30px;
-    border: none;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
+    width: 100%;
+    padding: 15px;
   }
 
-  .btn-edit {
-    background: #ecf0f1;
-    color: #34495e;
-  }
-
-  .btn-edit:hover {
-    background: #d5dbdb;
-  }
-
-  .btn-download {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-  }
-
-  .btn-download:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
-  }
-
-  /* PDF Content */
   .pdf-content {
-    width: 210mm;
-    min-height: 297mm;
-    margin: 0 auto;
-    padding: 20mm;
-    background: white;
-    font-family: Arial, sans-serif;
-    font-size: 10pt;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  }
-  
-  .pdf-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .pdf-header h1 {
-    font-size: 16pt;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .pdf-header-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 10pt;
-    margin-bottom: 15px;
-  }
-  
-  .pdf-section-title {
-    background: #f0f0f0;
-    padding: 5px 10px;
-    font-weight: bold;
-    margin: 15px 0 10px 0;
-    border: 1px solid #999;
-  }
-  
-  .stats-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 15px;
-  }
-  
-  .stats-table td {
-    border: 1px solid #999;
-    padding: 4px 8px;
-    font-size: 9pt;
-  }
-  
-  .stats-table td:nth-child(odd) {
-    font-weight: bold;
-    width: auto;
-    white-space: nowrap;
-  }
-  
-  .finance-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 15px;
-    font-size: 9pt;
-  }
-  
-  .finance-table th {
-    background: #e0e0e0;
-    border: 1px solid #999;
-    padding: 5px;
-    text-align: center;
-    font-weight: bold;
-  }
-  
-  .finance-table td {
-    border: 1px solid #999;
-    padding: 4px 8px;
-  }
-  
-  .finance-table td:first-child {
-    text-align: left;
-  }
-  
-  .finance-table td:not(:first-child) {
-    text-align: center;
-  }
-  
-  .finance-table tfoot td {
-    font-weight: bold;
-    background: #f5f5f5;
-  }
-  
-  .pdf-footer {
-    margin-top: 30px;
-    font-size: 9pt;
-  }
-  
-  .pdf-footer-date {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .pdf-footer-signature {
-    margin-top: 40px;
-    text-align: center;
-  }
-  
-  .pdf-footer-line {
-    border-top: 1px solid #000;
-    width: 400px;
-    margin: 0 auto 5px auto;
-   
-  }
-  
-  .pdf-notes {
-    margin-top: 20px;
+    padding: 10mm;
     font-size: 8pt;
-    color: #666;
+    overflow-x: auto;
   }
 
-  @media print {
-    body { background: white; }
-    .preview-header, .action-buttons { display: none; }
+  .pdf-header h1 {
+    font-size: 14pt;
   }
+
+  .pdf-header-info {
+    font-size: 8pt;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .stats-table {
+    font-size: 7pt;
+  }
+
+  .stats-table td {
+    padding: 3px 5px;
+  }
+
+  .finance-table {
+    font-size: 7pt;
+  }
+
+  .finance-table th,
+  .finance-table td {
+    padding: 3px 5px;
+  }
+
+  .pdf-footer {
+    font-size: 7pt;
+  }
+
+  .pdf-notes {
+    font-size: 6pt;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-box {
+    padding: 20px 15px;
+  }
+
+  .modal-title {
+    font-size: 18px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-btn {
+    width: 100%;
+  }
+
+  .welcome-screen {
+    padding: 30px 15px;
+  }
+
+  .welcome-icon {
+    font-size: 50px;
+  }
+
+  .welcome-title {
+    font-size: 20px;
+  }
+
+  .welcome-text {
+    font-size: 14px;
+  }
+
+  .pdf-content {
+    padding: 5mm;
+    font-size: 7pt;
+  }
+
+  .pdf-header h1 {
+    font-size: 12pt;
+  }
+
+  .stats-table,
+  .finance-table {
+    font-size: 6pt;
+  }
+
+  .stats-table td,
+  .finance-table th,
+  .finance-table td {
+    padding: 2px 3px;
+  }
+}
+
+@media print {
+  body { 
+    background: white; 
+  }
+  
+  .preview-header, 
+  .action-buttons { 
+    display: none; 
+  }
+
+  .pdf-preview {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .pdf-content {
+    box-shadow: none;
+    padding: 20mm;
+    font-size: 10pt;
+  }
+}
